@@ -5,7 +5,7 @@ package echo;
 import "google/api/annotations.proto";
 
 service Echo {
-  rpc Hello(HelloRequest) returns (HelloResponse) {
+  rpc Sum(SumRequest) returns (SumResponse) {
     option (google.api.http) = {
       post: "/v1/hello"
       body: "*"
@@ -13,10 +13,11 @@ service Echo {
   }
 }
 
-message HelloRequest {
-  string data = 1;
+message SumRequest {
+    int32 a = 1;
+    int32 b = 1;
 }
 
-message HelloResponse {
-  string data = 1;
+message SumResponse {
+    int32 sum_result = 1;
 }

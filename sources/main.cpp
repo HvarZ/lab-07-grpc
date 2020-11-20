@@ -1,6 +1,8 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <cstdint>
+#include <algorithm>
 
 #include <grpcpp/grpcpp.h>
 #include <grpcpp/health_check_service_interface.h>
@@ -12,15 +14,14 @@ using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
-using echo::HelloRequest;
-using echo::HelloResponse;
+using echo::SumRequest;
+using echo::SumResponse;
 using echo::Echo;
 
 class EchoServiceImpl final : public Echo::Service {
-  Status Hello(ServerContext* context, const HelloRequest* request,
-                  HelloResponse* response) override {
-    std::string prefix("Hello ");
-    response->set_data(prefix + request->data());
+  Status Sum(ServerContext* context, const SumRequest* request,
+              SumResponse* response) override {
+    *response->sum_result(request()->a + request()->n);
     return Status::OK;
   }
 };
